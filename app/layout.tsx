@@ -8,6 +8,7 @@ import ChatWidget from '@/components/ChatWidget'
 import BannerModalWrapper from '@/components/BannerModalWrapper'
 import BannerButton from '@/components/BannerButton'
 import { obtenerAparienciaPublica } from '@/lib/apariencia'
+import { obtenerMarcaPublica } from '@/lib/marca-publica'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 
@@ -93,6 +94,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const apariencia = await obtenerAparienciaPublica()
+  const marca = await obtenerMarcaPublica()
   const claseWeb = apariencia.web === 'actual' ? '' : ` web-${apariencia.web}`
   return (
     <html lang="es" className={inter.variable} style={apariencia.color ? { ['--web-color' as string]: apariencia.color } : undefined}>
@@ -102,11 +104,17 @@ export default async function RootLayout({
       </head>
       <body className={`min-h-screen flex flex-col${claseWeb}`}>
         <StructuredData />
-        <Header plantilla={apariencia.web} />
+        <Header
+          plantilla={apariencia.web}
+          nombre={marca.nombre}
+          logo={marca.logo}
+          intranetUrl={marca.intranetUrl}
+          propia={marca.propia}
+        />
         <main className="flex-grow">
           {children}
         </main>
-        <Footer />
+        <Footer nombre={marca.nombre} logo={marca.logoPie} propia={marca.propia} />
         <ChatWidget />
         <BannerButton />
         <BannerModalWrapper />

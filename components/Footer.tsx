@@ -4,7 +4,31 @@ import { FiFacebook, FiInstagram, FiYoutube, FiHome, FiLayers, FiShield, FiCamer
 import { FaTiktok } from 'react-icons/fa6'
 import ContactoFooter from '@/components/ContactoFooter'
 
-export default function Footer() {
+function LogoPie({ src, alt }: { src: string; alt: string }) {
+  if (src.startsWith('http')) {
+    return <img src={src} alt={alt} width={48} height={48} className="object-contain max-h-full max-w-full" />
+  }
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={48}
+      height={48}
+      className="object-contain"
+      unoptimized
+    />
+  )
+}
+
+export default function Footer({
+  nombre = 'Vanguard Schools',
+  logo = '/LOGO7.png',
+  propia = false,
+}: {
+  nombre?: string
+  logo?: string
+  propia?: boolean
+}) {
   return (
     <footer className="text-white" style={{ backgroundColor: '#0a1628' }}>
       <div className="container mx-auto px-4 py-12">
@@ -13,22 +37,17 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <div className="relative h-12 w-12 flex-shrink-0">
-                <Image
-                  src="/LOGO7.png"
-                  alt="Vanguard Schools Logo"
-                  width={48}
-                  height={48}
-                  className="object-contain"
-                  unoptimized
-                />
+                <LogoPie src={logo} alt={`Logo ${nombre}`} />
               </div>
               <span className="text-xl font-bold text-white">
-                Vanguard Schools
+                {nombre}
               </span>
             </div>
-            <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-              A la vanguardia de la tecnología educativa. Formando líderes del mañana con excelencia académica.
-            </p>
+            {!propia && (
+              <p className="text-gray-300 text-sm mb-4 leading-relaxed">
+                A la vanguardia de la tecnología educativa. Formando líderes del mañana con excelencia académica.
+              </p>
+            )}
             <div className="flex space-x-4 justify-start">
               <a
                 href="https://facebook.com"
@@ -146,7 +165,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-primary-800 mt-8 pt-8 text-center text-sm text-gray-300" style={{ borderTopColor: 'rgba(255, 255, 255, 0.1)' }}>
-          <p>© 2026 Vanguard Schools - Todos los derechos reservados</p>
+          <p>© 2026 {nombre} - Todos los derechos reservados</p>
         </div>
       </div>
     </footer>

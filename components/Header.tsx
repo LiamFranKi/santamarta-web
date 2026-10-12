@@ -6,7 +6,44 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { FiMenu, FiX, FiChevronDown, FiHome, FiMap, FiShoppingBag, FiFileText, FiLayers, FiShield, FiLock, FiHelpCircle, FiBriefcase, FiMessageSquare, FiCamera, FiBookOpen } from 'react-icons/fi'
 
-export default function Header({ plantilla = 'actual' }: { plantilla?: string }) {
+function LogoMarca({ src, alt, size }: { src: string; alt: string; size: number }) {
+  if (src.startsWith('http')) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        width={size}
+        height={size}
+        className="object-contain max-h-full max-w-full transition-transform group-hover:scale-105"
+      />
+    )
+  }
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={size}
+      height={size}
+      className="object-contain transition-transform group-hover:scale-105"
+      priority
+      unoptimized
+    />
+  )
+}
+
+export default function Header({
+  plantilla = 'actual',
+  nombre = 'Vanguard Schools',
+  logo = '/LOGO6.png',
+  intranetUrl = 'https://sistema.vanguardschools.edu.pe/',
+  propia = false,
+}: {
+  plantilla?: string
+  nombre?: string
+  logo?: string
+  intranetUrl?: string
+  propia?: boolean
+}) {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [inicioOpen, setInicioOpen] = useState(false)
@@ -53,23 +90,17 @@ export default function Header({ plantilla = 'actual' }: { plantilla?: string })
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative h-20 w-20 md:h-24 md:w-24 flex-shrink-0 flex items-center justify-center">
-              <Image
-                src="/LOGO6.png"
-                alt="Vanguard Schools Logo"
-                width={96}
-                height={96}
-                className="object-contain transition-transform group-hover:scale-105"
-                priority
-                unoptimized
-              />
+              <LogoMarca src={logo} alt={`Logo ${nombre}`} size={96} />
             </div>
             <div className="flex flex-col justify-center">
               <span className="marca-nombre text-lg sm:text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">
-                Vanguard Schools
+                {nombre}
               </span>
-              <span className="marca-lema text-[10px] sm:text-xs md:text-sm font-semibold leading-tight mt-0.5">
-                <span className="text-gray-900">A la vanguardia</span> <span className="text-secondary-800">de la tecnología</span>
-              </span>
+              {!propia && (
+                <span className="marca-lema text-[10px] sm:text-xs md:text-sm font-semibold leading-tight mt-0.5">
+                  <span className="text-gray-900">A la vanguardia</span> <span className="text-secondary-800">de la tecnología</span>
+                </span>
+              )}
             </div>
           </Link>
 
@@ -197,7 +228,7 @@ export default function Header({ plantilla = 'actual' }: { plantilla?: string })
               <span>Reclamaciones</span>
             </Link>
             <a
-              href="https://sistema.vanguardschools.edu.pe/"
+              href={intranetUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-2.5 rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
@@ -362,7 +393,7 @@ export default function Header({ plantilla = 'actual' }: { plantilla?: string })
                 <span>Reclamaciones</span>
               </Link>
               <a
-                href="https://sistema.vanguardschools.edu.pe/"
+                href={intranetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
