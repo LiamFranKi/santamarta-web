@@ -357,6 +357,30 @@ html {
   list-style: none;
 }
 
+.header-franja {
+  height: 6px;
+  width: 100%;
+}
+
+.header-sobre .marca-nombre,
+.header-sobre .marca-lema,
+.header-sobre .marca-lema span {
+  color: #fff;
+}
+
+.header-sobre nav > div > .lg\:flex > a,
+.header-sobre nav > div > .lg\:flex > div > a,
+.header-sobre nav > div > .lg\:flex > div > button,
+.header-sobre nav > div > button {
+  color: #fff;
+}
+
+.header-sobre .bg-white a,
+.header-sobre .bg-white button,
+.header-sobre .bg-white span {
+  color: #1f2937;
+}
+
 @media print {
   body * {
     visibility: hidden;

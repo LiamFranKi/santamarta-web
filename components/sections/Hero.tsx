@@ -6,7 +6,7 @@ import { FiArrowRight, FiMail, FiMap, FiInfo, FiX } from 'react-icons/fi'
 import VideoModal from '@/components/VideoModal'
 import type { AdmisionConfigPublica } from '@/lib/admision-config'
 
-export default function Hero() {
+export default function Hero({ plantilla = 'actual' }: { plantilla?: string }) {
   const [isVisible, setIsVisible] = useState(false)
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [admision, setAdmision] = useState<AdmisionConfigPublica | null>(null)
@@ -40,7 +40,15 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative flex min-h-[100svh] md:min-h-screen flex-col text-white">
+    <section className={
+      plantilla === 'sobrio'
+        ? 'relative flex min-h-[52vh] flex-col text-white'
+        : plantilla === 'editorial'
+          ? 'relative flex min-h-[72vh] flex-col text-white'
+          : plantilla === 'tarjetas'
+            ? 'relative mx-3 mt-28 mb-6 flex min-h-[68vh] flex-col overflow-hidden rounded-3xl text-white md:mx-8'
+            : 'relative flex min-h-[100svh] md:min-h-screen flex-col text-white'
+    }>
       {/* Se sirve por API: Next no publica fotos subidas a public/ después del build. */}
       <div className="absolute inset-0 z-0 bg-slate-900">
         <img

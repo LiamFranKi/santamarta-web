@@ -7,6 +7,7 @@ import StructuredData from '@/components/StructuredData'
 import ChatWidget from '@/components/ChatWidget'
 import BannerModalWrapper from '@/components/BannerModalWrapper'
 import BannerButton from '@/components/BannerButton'
+import { obtenerAparienciaPublica } from '@/lib/apariencia'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 
@@ -78,26 +79,30 @@ export const metadata: Metadata = {
   },
 }
 
+export const dynamic = 'force-dynamic'
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const apariencia = await obtenerAparienciaPublica()
+  const claseWeb = apariencia.web === 'actual' ? '' : ` web-${apariencia.web}`
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es" className={inter.variable} style={apariencia.color ? { ['--web-color' as string]: apariencia.color } : undefined}>
       <head>
         <link rel="icon" href="/favicon-ico.png" />
         <link rel="canonical" href="https://www.vanguardschools.com" />
       </head>
-      <body className="min-h-screen flex flex-col">
+      <body className={`min-h-screen flex flex-col${claseWeb}`}>
         <StructuredData />
-        <Header />
+        <Header plantilla={apariencia.web} />
         <main className="flex-grow">
           {children}
         </main>

@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { FiMenu, FiX, FiChevronDown, FiHome, FiMap, FiShoppingBag, FiFileText, FiLayers, FiShield, FiLock, FiHelpCircle, FiBriefcase, FiMessageSquare, FiCamera, FiBookOpen } from 'react-icons/fi'
 
-export default function Header() {
+export default function Header({ plantilla = 'actual' }: { plantilla?: string }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [inicioOpen, setInicioOpen] = useState(false)
   const [levelsOpen, setLevelsOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,12 +32,24 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const sobre = plantilla === 'sobre-banner' && pathname === '/' && !isScrolled && !isOpen
+  const editorial = plantilla === 'editorial'
+  const sobrio = plantilla === 'sobrio'
+  const barra = plantilla === 'barra'
+
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg border-b border-gray-200 transition-all duration-300"
+      className={
+        sobre
+          ? 'header-plantilla header-sobre fixed top-0 left-0 right-0 z-50 bg-transparent border-transparent transition-all duration-300'
+          : sobrio
+            ? 'header-plantilla fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200'
+            : 'header-plantilla fixed top-0 left-0 right-0 z-50 bg-white shadow-lg border-b border-gray-200 transition-all duration-300'
+      }
     >
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+      {barra && <div className="header-franja" style={{ background: 'var(--web-color, #1e3a5f)' }} />}
+      <nav className={`container mx-auto px-4 ${sobrio ? 'py-2' : 'py-4'}`}>
+        <div className={`flex items-center justify-between ${editorial ? 'flex-col gap-2' : ''}`}>
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative h-20 w-20 md:h-24 md:w-24 flex-shrink-0 flex items-center justify-center">
@@ -50,10 +64,10 @@ export default function Header() {
               />
             </div>
             <div className="flex flex-col justify-center">
-              <span className="text-lg sm:text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">
+              <span className="marca-nombre text-lg sm:text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">
                 Vanguard Schools
               </span>
-              <span className="text-[10px] sm:text-xs md:text-sm font-semibold leading-tight mt-0.5">
+              <span className="marca-lema text-[10px] sm:text-xs md:text-sm font-semibold leading-tight mt-0.5">
                 <span className="text-gray-900">A la vanguardia</span> <span className="text-secondary-800">de la tecnología</span>
               </span>
             </div>
