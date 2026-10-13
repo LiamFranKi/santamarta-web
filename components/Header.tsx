@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { FiMenu, FiX, FiChevronDown, FiHome, FiMap, FiShoppingBag, FiFileText, FiLayers, FiShield, FiLock, FiHelpCircle, FiBriefcase, FiMessageSquare, FiCamera, FiBookOpen } from 'react-icons/fi'
 
 function LogoMarca({ src, alt, size }: { src: string; alt: string; size: number }) {
-  if (src.startsWith('http')) {
+  if (src.startsWith('http') || src.startsWith('/api/')) {
     return (
       <img
         src={src}

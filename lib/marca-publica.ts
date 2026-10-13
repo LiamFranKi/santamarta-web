@@ -51,7 +51,7 @@ export async function obtenerMarcaPublica(): Promise<MarcaPublica> {
     const colegioId = parseInt(process.env.WEB_COLEGIO_ID || '1', 10) || 1
     const [cfgRows] = await pool.query(
       `SELECT clave, valor FROM config
-       WHERE clave IN ('web_intranet_url', 'logo_colegio', 'texto_intranet')`
+       WHERE clave IN ('web_intranet_url', 'logo_colegio', 'logo_blanco', 'texto_intranet')`
     )
     const map: Record<string, string> = {}
     for (const row of cfgRows as { clave?: string; valor?: string }[]) {
@@ -76,10 +76,10 @@ export async function obtenerMarcaPublica(): Promise<MarcaPublica> {
     marca.intranetUrl = intranet.endsWith('/') ? intranet : `${intranet}/`
 
     const archivo = nombreLogo(map.logo_colegio)
-    const origenLogo = origenPropio || (!marca.propia ? INTRANET_RESPALDO.replace(/\/$/, '') : '')
-    if (archivo && origenLogo) {
-      marca.logo = `${origenLogo}/uploads/colegio/${archivo}`
-      marca.logoPie = marca.logo
+    const blanco = nombreLogo(map.logo_blanco)
+    if (archivo) {
+      marca.logo = '/api/marca-logo'
+      marca.logoPie = blanco ? '/api/marca-logo?cual=blanco' : '/api/marca-logo'
     }
   } catch {
     /* sin base: se queda la marca actual */

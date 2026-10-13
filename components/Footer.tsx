@@ -5,7 +5,7 @@ import { FaTiktok } from 'react-icons/fa6'
 import ContactoFooter from '@/components/ContactoFooter'
 
 function LogoPie({ src, alt }: { src: string; alt: string }) {
-  if (src.startsWith('http')) {
+  if (src.startsWith('http') || src.startsWith('/api/')) {
     return <img src={src} alt={alt} width={48} height={48} className="object-contain max-h-full max-w-full" />
   }
   return (
