@@ -20,14 +20,15 @@ function origenIntranet(): string {
 }
 
 export async function GET(req: NextRequest) {
-  const cual = req.nextUrl.searchParams.get('cual') === 'blanco' ? 'logo_blanco' : 'logo_colegio'
+  const pedido = req.nextUrl.searchParams.get('cual')
+  const cual = pedido === 'blanco' ? 'logo_blanco' : pedido === 'icono' ? 'icono_app' : 'logo_colegio'
   const pool = getPool()
   if (!pool) return new NextResponse('Sin logo', { status: 404 })
   let name = ''
   try {
     const [rows] = await pool.query(`SELECT valor FROM config WHERE clave = ? LIMIT 1`, [cual])
     name = nombreLogo((rows as { valor?: string }[])[0]?.valor)
-    if (!name && cual === 'logo_blanco') {
+    if (!name && (cual === 'logo_blanco' || cual === 'icono_app')) {
       const [color] = await pool.query(`SELECT valor FROM config WHERE clave = 'logo_colegio' LIMIT 1`)
       name = nombreLogo((color as { valor?: string }[])[0]?.valor)
     }

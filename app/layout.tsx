@@ -70,6 +70,10 @@ export async function generateMetadata(): Promise<Metadata> {
     description: 'Colegio Vanguard Schools - Educación Inicial, Primaria y Secundaria con metodología STEAM y tecnología de vanguardia.',
     images: ['/LOGO6.png'],
   },
+  icons: {
+    icon: marca.favicon,
+    apple: marca.favicon,
+  },
   robots: {
     index: true,
     follow: true,
@@ -107,7 +111,8 @@ export default async function RootLayout({
   return (
     <html lang="es" className={inter.variable} style={apariencia.color ? { ['--web-color' as string]: apariencia.color } : undefined}>
       <head>
-        <link rel="icon" href="/favicon-ico.png" />
+        <link rel="icon" href={marca.favicon} />
+        <link rel="apple-touch-icon" href={marca.favicon} />
         <link rel="canonical" href="https://www.vanguardschools.com" />
       </head>
       <body className={`min-h-screen flex flex-col${claseWeb}`}>

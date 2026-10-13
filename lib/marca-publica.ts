@@ -11,11 +11,13 @@ export type MarcaPublica = {
   logoPie: string
   intranetUrl: string
   tituloPagina: string
+  favicon: string
   propia: boolean
 }
 
 const NOMBRE_RESPALDO = 'Vanguard Schools'
 const LOGO_RESPALDO = '/LOGO6.png'
+const FAVICON_RESPALDO = '/favicon-ico.png'
 const LOGO_PIE_RESPALDO = '/LOGO7.png'
 const INTRANET_RESPALDO = 'https://sistema.vanguardschools.edu.pe/'
 
@@ -45,6 +47,7 @@ export async function obtenerMarcaPublica(): Promise<MarcaPublica> {
     logoPie: LOGO_PIE_RESPALDO,
     intranetUrl: INTRANET_RESPALDO,
     tituloPagina: '',
+    favicon: FAVICON_RESPALDO,
     propia: false,
   }
   try {
@@ -53,7 +56,7 @@ export async function obtenerMarcaPublica(): Promise<MarcaPublica> {
     const colegioId = parseInt(process.env.WEB_COLEGIO_ID || '1', 10) || 1
     const [cfgRows] = await pool.query(
       `SELECT clave, valor FROM config
-       WHERE clave IN ('web_intranet_url', 'web_titulo', 'logo_colegio', 'logo_blanco', 'texto_intranet')`
+       WHERE clave IN ('web_intranet_url', 'web_titulo', 'logo_colegio', 'logo_blanco', 'icono_app', 'texto_intranet')`
     )
     const map: Record<string, string> = {}
     for (const row of cfgRows as { clave?: string; valor?: string }[]) {
@@ -80,10 +83,13 @@ export async function obtenerMarcaPublica(): Promise<MarcaPublica> {
 
     const archivo = nombreLogo(map.logo_colegio)
     const blanco = nombreLogo(map.logo_blanco)
+    const icono = nombreLogo(map.icono_app)
     if (archivo) {
       marca.logo = '/api/marca-logo'
       marca.logoPie = blanco ? '/api/marca-logo?cual=blanco' : '/api/marca-logo'
     }
+    if (icono) marca.favicon = '/api/marca-logo?cual=icono'
+    else if (archivo) marca.favicon = '/api/marca-logo'
   } catch {
     /* sin base: se queda la marca actual */
   }
