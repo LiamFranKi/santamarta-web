@@ -123,6 +123,8 @@ export default async function RootLayout({
           logo={marca.logo}
           intranetUrl={marca.intranetUrl}
           propia={marca.propia}
+          lema={marca.lema}
+          lemaVerde={marca.lemaVerde}
         />
         <main className="flex-grow">
           {children}

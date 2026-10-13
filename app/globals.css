@@ -362,10 +362,15 @@ html {
   width: 100%;
 }
 
+.header-sobre {
+  background: linear-gradient(to bottom, rgba(8, 18, 36, 0.82), rgba(8, 18, 36, 0.46) 78%, rgba(8, 18, 36, 0));
+}
+
 .header-sobre .marca-nombre,
 .header-sobre .marca-lema,
 .header-sobre .marca-lema span {
   color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
 }
 
 .header-sobre nav > div > .lg\:flex > a,
@@ -373,6 +378,7 @@ html {
 .header-sobre nav > div > .lg\:flex > div > button,
 .header-sobre nav > div > button {
   color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
 }
 
 .header-sobre .bg-white a,

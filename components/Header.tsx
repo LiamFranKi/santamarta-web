@@ -6,6 +6,19 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { FiMenu, FiX, FiChevronDown, FiHome, FiMap, FiShoppingBag, FiFileText, FiLayers, FiShield, FiLock, FiHelpCircle, FiBriefcase, FiMessageSquare, FiCamera, FiBookOpen } from 'react-icons/fi'
 
+function Lema({ propia, lema, verde }: { propia: boolean; lema: string; verde: string }) {
+  const texto = lema || (!propia && !verde ? 'A la vanguardia' : '')
+  const color = (lema || verde) ? verde : (!propia ? 'de la tecnología' : '')
+  if (!texto && !color) return null
+  return (
+    <span className="marca-lema text-[10px] sm:text-xs md:text-sm font-semibold leading-tight mt-0.5">
+      {texto ? <span className="text-gray-900">{texto}</span> : null}
+      {texto && color ? ' ' : null}
+      {color ? <span className="text-secondary-800">{color}</span> : null}
+    </span>
+  )
+}
+
 function LogoMarca({ src, alt, size }: { src: string; alt: string; size: number }) {
   if (src.startsWith('http') || src.startsWith('/api/')) {
     return (
@@ -37,12 +50,16 @@ export default function Header({
   logo = '/LOGO6.png',
   intranetUrl = 'https://sistema.vanguardschools.edu.pe/',
   propia = false,
+  lema = '',
+  lemaVerde = '',
 }: {
   plantilla?: string
   nombre?: string
   logo?: string
   intranetUrl?: string
   propia?: boolean
+  lema?: string
+  lemaVerde?: string
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -78,7 +95,7 @@ export default function Header({
     <header
       className={
         sobre
-          ? 'header-plantilla header-sobre fixed top-0 left-0 right-0 z-50 bg-transparent border-transparent transition-all duration-300'
+          ? 'header-plantilla header-sobre fixed top-0 left-0 right-0 z-50 transition-all duration-300'
           : sobrio
             ? 'header-plantilla fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200'
             : 'header-plantilla fixed top-0 left-0 right-0 z-50 bg-white shadow-lg border-b border-gray-200 transition-all duration-300'
@@ -96,11 +113,7 @@ export default function Header({
               <span className="marca-nombre text-lg sm:text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">
                 {nombre}
               </span>
-              {!propia && (
-                <span className="marca-lema text-[10px] sm:text-xs md:text-sm font-semibold leading-tight mt-0.5">
-                  <span className="text-gray-900">A la vanguardia</span> <span className="text-secondary-800">de la tecnología</span>
-                </span>
-              )}
+              <Lema propia={propia} lema={lema} verde={lemaVerde} />
             </div>
           </Link>
 
