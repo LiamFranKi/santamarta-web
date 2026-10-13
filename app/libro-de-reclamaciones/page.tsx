@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const inst = await obtenerInstitucionPublica()
   const marca = inst.nombreComercial || inst.razonSocial || 'Colegio'
   return {
-    title: `Libro de Reclamaciones - ${marca}`,
+    title: 'Libro de Reclamaciones',
     description: `Libro de reclamaciones virtual de ${marca}. Registre su reclamo o queja de forma formal.`,
   }
 }

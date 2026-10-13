@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Trabaja con Nosotros - Vanguard Schools',
+  title: 'Trabaja con Nosotros',
   description:
     'Envía tu curriculum vitae y postula para ser parte del equipo de Vanguard Schools.',
 }

@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Preguntas Frecuentes - Vanguard Schools',
+  title: 'Preguntas Frecuentes',
   description:
     'Admisión, vacantes, traslados y visitas al campus de Vanguard Schools. Resuelve tus dudas antes de dar el siguiente paso.',
 }

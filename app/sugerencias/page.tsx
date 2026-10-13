@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Sugerencias - Vanguard Schools',
+  title: 'Sugerencias',
   description:
     'Comparte tus sugerencias, comentarios y felicitaciones para seguir mejorando juntos en Vanguard Schools.',
 }

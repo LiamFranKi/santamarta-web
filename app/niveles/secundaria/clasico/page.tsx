@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Educación Secundaria (diseño anterior) - Vanguard Schools',
+  title: 'Educación Secundaria (diseño anterior)',
   description: 'Versión anterior de Educación Secundaria en Vanguard Schools.',
   robots: { index: false, follow: true },
 }

@@ -12,10 +12,17 @@ import { obtenerMarcaPublica } from '@/lib/marca-publica'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 
-export const metadata: Metadata = {
+const TITULO_VANGUARD = 'Vanguard Schools - A la Vanguardia de la Tecnología'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const marca = await obtenerMarcaPublica()
+  const frase = marca.tituloPagina
+  const tituloInicio = frase || (marca.propia ? marca.nombre : TITULO_VANGUARD)
+  const sufijo = frase || (marca.propia ? marca.nombre : 'Vanguard Schools')
+  return {
   title: {
-    default: 'Vanguard Schools - A la Vanguardia de la Tecnología',
-    template: '%s | Vanguard Schools',
+    default: tituloInicio,
+    template: `%s | ${sufijo}`,
   },
   description: 'Colegio Vanguard Schools en San Martín de Porres, Lima. Educación Inicial, Primaria y Secundaria con metodología STEAM, inglés intensivo, piscinas temperadas y tecnología de vanguardia. Formamos líderes del mañana.',
   keywords: [
@@ -34,9 +41,9 @@ export const metadata: Metadata = {
     'colegio bilingüe Lima',
     'colegio innovación educativa',
   ],
-  authors: [{ name: 'Vanguard Schools' }],
-  creator: 'Vanguard Schools',
-  publisher: 'Vanguard Schools',
+  authors: [{ name: sufijo }],
+  creator: sufijo,
+  publisher: sufijo,
   metadataBase: new URL('https://www.vanguardschools.com'),
   alternates: {
     canonical: '/',
@@ -45,8 +52,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_PE',
     url: 'https://www.vanguardschools.com',
-    siteName: 'Vanguard Schools',
-    title: 'Vanguard Schools - A la Vanguardia de la Tecnología',
+    siteName: sufijo,
+    title: tituloInicio,
     description: 'Colegio Vanguard Schools - Educación Inicial, Primaria y Secundaria con metodología STEAM, inglés intensivo y tecnología de vanguardia en San Martín de Porres, Lima.',
     images: [
       {
@@ -59,7 +66,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Vanguard Schools - A la Vanguardia de la Tecnología',
+    title: tituloInicio,
     description: 'Colegio Vanguard Schools - Educación Inicial, Primaria y Secundaria con metodología STEAM y tecnología de vanguardia.',
     images: ['/LOGO6.png'],
   },
@@ -78,6 +85,7 @@ export const metadata: Metadata = {
     // Agregar cuando tengas Google Search Console
     // google: 'tu-codigo-de-verificacion',
   },
+  }
 }
 
 export const dynamic = 'force-dynamic'

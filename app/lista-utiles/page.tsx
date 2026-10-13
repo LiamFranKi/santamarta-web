@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Lista de Útiles - Vanguard Schools',
+  title: 'Lista de Útiles',
   description: 'Lista de útiles escolares por nivel educativo en Vanguard Schools. Descarga las listas de materiales necesarios para cada grado.',
 }
 

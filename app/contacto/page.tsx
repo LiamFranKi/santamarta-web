@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Contacto - Vanguard Schools',
+  title: 'Contacto',
   description: 'Contáctanos para más información sobre admisiones, programas educativos y servicios de Vanguard Schools.',
 }
 

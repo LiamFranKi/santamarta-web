@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Educación Primaria - Vanguard Schools',
+  title: 'Educación Primaria',
   description:
     'Educación Primaria en Vanguard Schools. 1.° a 6.° con aula invertida, inglés vivencial, tablets, piscinas y canchas sintéticas.',
 }

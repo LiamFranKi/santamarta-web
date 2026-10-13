@@ -8,7 +8,7 @@ export const revalidate = 0
 export async function generateMetadata(): Promise<Metadata> {
   const cfg = await getAdmisionConfigPublica()
   return {
-    title: `Admisión ${cfg.anio} - Vanguard Schools`,
+    title: `Admisión ${cfg.anio}`,
     description: `Formulario de admisión y ratificación para el año ${cfg.anio} en Vanguard Schools. Regístrate y nos comunicaremos contigo.`,
   }
 }

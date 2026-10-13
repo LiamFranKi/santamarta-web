@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Calendarización 2026 - Vanguard Schools',
+  title: 'Calendarización 2026',
   description: 'Consulta el calendario académico y eventos del año 2026 de Vanguard Schools.',
 }
 

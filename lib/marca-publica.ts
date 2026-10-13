@@ -10,6 +10,7 @@ export type MarcaPublica = {
   logo: string
   logoPie: string
   intranetUrl: string
+  tituloPagina: string
   propia: boolean
 }
 
@@ -43,6 +44,7 @@ export async function obtenerMarcaPublica(): Promise<MarcaPublica> {
     logo: LOGO_RESPALDO,
     logoPie: LOGO_PIE_RESPALDO,
     intranetUrl: INTRANET_RESPALDO,
+    tituloPagina: '',
     propia: false,
   }
   try {
@@ -51,7 +53,7 @@ export async function obtenerMarcaPublica(): Promise<MarcaPublica> {
     const colegioId = parseInt(process.env.WEB_COLEGIO_ID || '1', 10) || 1
     const [cfgRows] = await pool.query(
       `SELECT clave, valor FROM config
-       WHERE clave IN ('web_intranet_url', 'logo_colegio', 'logo_blanco', 'texto_intranet')`
+       WHERE clave IN ('web_intranet_url', 'web_titulo', 'logo_colegio', 'logo_blanco', 'texto_intranet')`
     )
     const map: Record<string, string> = {}
     for (const row of cfgRows as { clave?: string; valor?: string }[]) {
@@ -70,6 +72,7 @@ export async function obtenerMarcaPublica(): Promise<MarcaPublica> {
       marca.nombre = nombre
       marca.propia = nombre !== NOMBRE_RESPALDO
     }
+    marca.tituloPagina = String(map.web_titulo || '').replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 140)
 
     const origenPropio = urlOk(map.web_intranet_url) || urlOk(process.env.INTRANET_PUBLIC_URL)
     const intranet = origenPropio || INTRANET_RESPALDO.replace(/\/$/, '')

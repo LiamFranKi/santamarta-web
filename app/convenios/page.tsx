@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Convenios - Vanguard Schools',
+  title: 'Convenios',
   description:
     'Conoce nuestros convenios con instituciones reconocidas: Cambridge (Inglés), AquaXtreme (Natación) y Valley (Robótica).',
 }

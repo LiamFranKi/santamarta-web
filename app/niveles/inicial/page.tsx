@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Educación Inicial - Vanguard Schools',
+  title: 'Educación Inicial',
   description:
     'Educación Inicial en Vanguard Schools. Early Year, Pre Kinder y Kinder con STEAM, juego, piscina patera y dos maestras por aula.',
 }
