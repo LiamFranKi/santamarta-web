@@ -1,11 +1,19 @@
 import { Metadata } from 'next'
 import AdmissionForm from '@/components/sections/AdmissionForm'
+import { PaginaAdmision, TituloSolicitud } from '@/components/santamarta/paginas'
 import { getAdmisionConfigPublica } from '@/lib/admision-config'
+import { esBilingue } from '@/lib/sms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export async function generateMetadata(): Promise<Metadata> {
+  if (await esBilingue()) {
+    return {
+      title: 'Admisión · Santa Marta School',
+      description: 'Solicita información de admisión para inicial o primaria en Santa Marta School.',
+    }
+  }
   const cfg = await getAdmisionConfigPublica()
   return {
     title: `Admisión ${cfg.anio}`,
@@ -14,6 +22,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AdmisionPage() {
+  if (await esBilingue()) {
+    return (
+      <>
+        <PaginaAdmision />
+        <div id="formulario" className="sms-formulario">
+          <TituloSolicitud />
+          <AdmissionForm soloInicialPrimaria />
+        </div>
+      </>
+    )
+  }
   const cfg = await getAdmisionConfigPublica()
 
   return (

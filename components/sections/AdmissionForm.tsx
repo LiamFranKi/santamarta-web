@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { FiUser, FiMail, FiPhone, FiMapPin, FiFileText, FiSend, FiCheckCircle } from 'react-icons/fi'
 import AntiSpamFields, { useAntiSpam } from '@/components/AntiSpamFields'
 
-export default function AdmissionForm() {
+export default function AdmissionForm({ soloInicialPrimaria = false }: { soloInicialPrimaria?: boolean }) {
   const [formData, setFormData] = useState({
     nombresEstudiante: '',
     apellidosEstudiante: '',
@@ -260,7 +260,7 @@ export default function AdmissionForm() {
                       className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-700 focus:border-amber-700 transition-all text-gray-900 bg-white"
                     >
                       <option value="">Selecciona un grado</option>
-                      {grados.map((grado) => (
+                      {(soloInicialPrimaria ? grados.filter((grado) => !grado.includes('Secundaria')) : grados).map((grado) => (
                         <option key={grado} value={grado}>
                           {grado}
                         </option>

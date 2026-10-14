@@ -9,6 +9,9 @@ import BannerModalWrapper from '@/components/BannerModalWrapper'
 import BannerButton from '@/components/BannerButton'
 import { obtenerAparienciaPublica } from '@/lib/apariencia'
 import { obtenerMarcaPublica } from '@/lib/marca-publica'
+import { obtenerContactoInstitucional } from '@/lib/contacto-institucional'
+import { prepararDatosSantaMarta } from '@/lib/santamarta-datos'
+import SantaMartaMarco from '@/components/santamarta/SantaMartaMarco'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 
@@ -16,6 +19,18 @@ const TITULO_VANGUARD = 'Vanguard Schools - A la Vanguardia de la Tecnología'
 
 export async function generateMetadata(): Promise<Metadata> {
   const marca = await obtenerMarcaPublica()
+  const apariencia = await obtenerAparienciaPublica()
+  if (apariencia.web === 'bilingue') {
+    const titulo = marca.tituloPagina || 'Santa Marta School · Grandes comienzos'
+    return {
+      title: { default: titulo, template: `%s | ${marca.propia ? marca.nombre : 'Santa Marta School'}` },
+      description: 'Educación inicial y primaria bilingüe en Comas. Un lugar para descubrir, aprender y crecer con confianza.',
+      icons: {
+        icon: marca.propia && marca.favicon.startsWith('/api/') ? marca.favicon : '/santa-marta/favicon.png',
+        apple: marca.propia && marca.favicon.startsWith('/api/') ? marca.favicon : '/santa-marta/apple-touch.png',
+      },
+    }
+  }
   const frase = marca.tituloPagina
   const tituloInicio = frase || (marca.propia ? marca.nombre : TITULO_VANGUARD)
   const sufijo = frase || (marca.propia ? marca.nombre : 'Vanguard Schools')
@@ -107,7 +122,24 @@ export default async function RootLayout({
 }) {
   const apariencia = await obtenerAparienciaPublica()
   const marca = await obtenerMarcaPublica()
+  const bilingue = apariencia.web === 'bilingue'
   const claseWeb = apariencia.web === 'actual' ? '' : ` web-${apariencia.web}`
+  if (bilingue) {
+    const contacto = await obtenerContactoInstitucional()
+    return (
+      <html lang="es" className={inter.variable}>
+        <head>
+          <link rel="icon" href={marca.propia && marca.favicon.startsWith('/api/') ? marca.favicon : '/santa-marta/favicon.png'} />
+          <link rel="apple-touch-icon" href={marca.propia && marca.favicon.startsWith('/api/') ? marca.favicon : '/santa-marta/apple-touch.png'} />
+        </head>
+        <body className="min-h-screen">
+          <SantaMartaMarco datos={prepararDatosSantaMarta(marca, contacto)}>
+            {children}
+          </SantaMartaMarco>
+        </body>
+      </html>
+    )
+  }
   return (
     <html lang="es" className={inter.variable} style={apariencia.color ? { ['--web-color' as string]: apariencia.color } : undefined}>
       <head>

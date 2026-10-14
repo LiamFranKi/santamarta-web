@@ -9,10 +9,11 @@ export type AparienciaPublica = {
   color: string
 }
 
-const WEBS = new Set(['actual', 'barra', 'sobre-banner', 'editorial', 'tarjetas', 'sobrio'])
+const WEBS = new Set(['actual', 'barra', 'sobre-banner', 'editorial', 'tarjetas', 'sobrio', 'bilingue'])
 
 export async function obtenerAparienciaPublica(): Promise<AparienciaPublica> {
   const base: AparienciaPublica = { web: 'actual', color: '' }
+  if (process.env.SMS_PREVIEW === '1') return { web: 'bilingue', color: '' }
   try {
     const pool = getPool()
     if (!pool) return base
