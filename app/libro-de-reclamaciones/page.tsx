@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import LibroReclamaciones from '@/components/sections/LibroReclamaciones'
+import PaginaMarco from '@/components/santamarta/PaginaMarco'
 import { obtenerInstitucionPublica } from '@/lib/institucion-publica'
+import { esBilingue } from '@/lib/sms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -18,7 +20,7 @@ export default async function LibroDeReclamacionesPage() {
   const inst = await obtenerInstitucionPublica()
   const marca = inst.nombreComercial || inst.razonSocial
 
-  return (
+  const cuerpo = (
     <div className="pt-20">
       <section className="bg-gradient-to-br from-slate-800 via-slate-900 to-primary-900 text-white py-14">
         <div className="container mx-auto px-4">
@@ -41,4 +43,6 @@ export default async function LibroDeReclamacionesPage() {
       <LibroReclamaciones />
     </div>
   )
+  if (!(await esBilingue())) return cuerpo
+  return <PaginaMarco kicker="pRecK" titulo="pRecT" texto="pRecP">{cuerpo}</PaginaMarco>
 }

@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { FiFileText, FiMail } from 'react-icons/fi'
 import { getConvenios } from '@/lib/convenios'
+import PaginaMarco from '@/components/santamarta/PaginaMarco'
+import { esBilingue } from '@/lib/sms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -9,13 +11,13 @@ export const revalidate = 0
 export const metadata: Metadata = {
   title: 'Convenios',
   description:
-    'Conoce nuestros convenios con instituciones reconocidas: Cambridge (Inglés), AquaXtreme (Natación) y Valley (Robótica).',
+    'Convenios publicados por Santa Marta School.',
 }
 
 export default async function ConveniosPage() {
   const data = await getConvenios()
 
-  return (
+  const cuerpo = (
     <div className="pt-20">
       <section className="bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 text-white py-16">
         <div className="container mx-auto px-4">
@@ -126,4 +128,6 @@ export default async function ConveniosPage() {
       </section>
     </div>
   )
+  if (!(await esBilingue())) return cuerpo
+  return <PaginaMarco kicker="pConK" titulo="pConT" texto="pConP">{cuerpo}</PaginaMarco>
 }

@@ -33,7 +33,7 @@ const EMPTY_CONFIG: VisitaConfig = {
   disponible: false,
 }
 
-export default function VisitForm() {
+export default function VisitForm({ soloInicialPrimaria = false }: { soloInicialPrimaria?: boolean }) {
   const [config, setConfig] = useState<VisitaConfig>(EMPTY_CONFIG)
   const [configLoaded, setConfigLoaded] = useState(false)
 
@@ -391,8 +391,8 @@ export default function VisitForm() {
                       <option value="">Selecciona un nivel</option>
                       <option value="Inicial">Inicial</option>
                       <option value="Primaria">Primaria</option>
-                      <option value="Secundaria">Secundaria</option>
-                      <option value="Todos los niveles">Todos los niveles</option>
+                      {soloInicialPrimaria ? null : <option value="Secundaria">Secundaria</option>}
+                      {soloInicialPrimaria ? null : <option value="Todos los niveles">Todos los niveles</option>}
                     </select>
                   </div>
                 </div>

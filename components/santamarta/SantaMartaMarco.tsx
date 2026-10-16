@@ -37,6 +37,12 @@ export function useSms() {
   return valor
 }
 
+function urlMatricula(intranetUrl: string) {
+  const base = String(intranetUrl || '').replace(/\/+$/, '')
+  if (!base || /vanguardschools/i.test(base)) return 'http://89.117.52.9:8080/matricula_online'
+  return `${base}/matricula_online`
+}
+
 const REDES = [
   { nombre: 'Facebook', href: 'https://www.facebook.com/santamartaschool' },
   { nombre: 'Instagram', href: 'https://www.instagram.com/santamartaschool' },
@@ -144,9 +150,33 @@ export default function SantaMartaMarco({
             </button>
             <nav id="sms-nav" className={`sms-links${menu ? ' open' : ''}`} aria-label={lang === 'en' ? 'Main' : 'Principal'}>
               <Link className={marcado(pathname, '/nosotros') ? 'is-on' : ''} href="/nosotros" onClick={cerrarMenu}>{t('navColegio')}</Link>
-              <Link className={marcado(pathname, '/niveles') ? 'is-on' : ''} href="/niveles" onClick={cerrarMenu}>{t('navNiveles')}</Link>
+              <div className="sms-drop">
+                <Link className={marcado(pathname, '/niveles') ? 'is-on' : ''} href="/niveles" onClick={cerrarMenu}>{t('navNiveles')}</Link>
+                <div className="sms-drop-panel">
+                  <Link href="/niveles/inicial" onClick={cerrarMenu}>{t('inicial')}</Link>
+                  <Link href="/niveles/primaria" onClick={cerrarMenu}>{t('primaria')}</Link>
+                </div>
+              </div>
               <Link className={marcado(pathname, '/equipo') ? 'is-on' : ''} href="/equipo" onClick={cerrarMenu}>{t('navEquipo')}</Link>
               <Link className={marcado(pathname, '/vida') ? 'is-on' : ''} href="/vida" onClick={cerrarMenu}>{t('navVida')}</Link>
+              <div className="sms-drop sms-drop-der">
+                <button type="button" className="sms-drop-btn" aria-haspopup="true">{t('navMas')} ▾</button>
+                <div className="sms-drop-panel">
+                  <div className="sms-drop-k">{t('masFamilias')}</div>
+                  <Link href="/visita-guiada" onClick={cerrarMenu}>{t('navVisita')}</Link>
+                  <Link href="/contacto" onClick={cerrarMenu}>{t('navContacto')}</Link>
+                  <Link href="/preguntas-frecuentes" onClick={cerrarMenu}>{t('navFaq')}</Link>
+                  <Link href="/lista-utiles" onClick={cerrarMenu}>{t('navUtiles')}</Link>
+                  <Link href="/documentos" onClick={cerrarMenu}>{t('navDocumentos')}</Link>
+                  <Link href="/calendarizacion" onClick={cerrarMenu}>{t('navCalendario')}</Link>
+                  <Link href="/libro-de-reclamaciones" onClick={cerrarMenu}>{t('reclamaciones')}</Link>
+                  <Link href="/sugerencias" onClick={cerrarMenu}>{t('navSugerencias')}</Link>
+                  <a href={urlMatricula(datos.intranetUrl)}>{t('navMatricula')}</a>
+                  <div className="sms-drop-k">{t('masColegio')}</div>
+                  <Link href="/convenios" onClick={cerrarMenu}>{t('navConvenios')}</Link>
+                  <Link href="/trabaja-con-nosotros" onClick={cerrarMenu}>{t('navTrabaja')}</Link>
+                </div>
+              </div>
               <Link className={`sms-btn small${marcado(pathname, '/admision') ? ' is-on' : ''}`} href="/admision" onClick={cerrarMenu}>{t('navAdmision')} <i>↗</i></Link>
             </nav>
           </div>
@@ -171,8 +201,13 @@ export default function SantaMartaMarco({
             <div>
               <h3>{t('familias')}</h3>
               <Link href="/admision">{t('navAdmision')}</Link>
-              <a href={datos.intranetUrl}>{t('intranetEscolar')}</a>
+              <Link href="/visita-guiada">{t('navVisita')}</Link>
+              <Link href="/contacto">{t('navContacto')}</Link>
+              <Link href="/lista-utiles">{t('navUtiles')}</Link>
+              <Link href="/documentos">{t('navDocumentos')}</Link>
               <Link href="/libro-de-reclamaciones">{t('reclamaciones')}</Link>
+              <a href={urlMatricula(datos.intranetUrl)}>{t('navMatricula')}</a>
+              <a href={datos.intranetUrl}>{t('intranetEscolar')}</a>
             </div>
             <div>
               <h3>{t('conversemos')}</h3>

@@ -1,17 +1,18 @@
 import { Metadata } from 'next'
 import Suggestions from '@/components/sections/Suggestions'
+import PaginaMarco from '@/components/santamarta/PaginaMarco'
+import { esBilingue } from '@/lib/sms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
   title: 'Sugerencias',
-  description:
-    'Comparte tus sugerencias, comentarios y felicitaciones para seguir mejorando juntos en Vanguard Schools.',
+  description: 'Sugerencias y comentarios para Santa Marta School.',
 }
 
-export default function SugerenciasPage() {
-  return (
+export default async function SugerenciasPage() {
+  const cuerpo = (
     <div className="pt-20">
       <section className="bg-gradient-to-br from-purple-700 via-indigo-800 to-blue-900 text-white py-16">
         <div className="container mx-auto px-4">
@@ -28,6 +29,8 @@ export default function SugerenciasPage() {
       <Suggestions />
     </div>
   )
+  if (!(await esBilingue())) return cuerpo
+  return <PaginaMarco kicker="pSugK" titulo="pSugT" texto="pSugP">{cuerpo}</PaginaMarco>
 }
 
 

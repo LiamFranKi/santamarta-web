@@ -1,16 +1,18 @@
 import { Metadata } from 'next'
 import VisitForm from '@/components/sections/VisitForm'
+import PaginaMarco from '@/components/santamarta/PaginaMarco'
+import { esBilingue } from '@/lib/sms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
   title: 'Visita Guiada',
-  description: 'Agenda una visita guiada a Vanguard Schools y conoce nuestras instalaciones, metodología educativa y más.',
+  description: 'Agenda una visita guiada a Santa Marta School, en Comas.',
 }
 
-export default function VisitaGuiadaPage() {
-  return (
+export default async function VisitaGuiadaPage() {
+  const cuerpo = (
     <div className="pt-20">
       <section className="bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 text-white py-16">
         <div className="container mx-auto px-4">
@@ -27,8 +29,10 @@ export default function VisitaGuiadaPage() {
       </section>
 
       {/* Sección única interactiva de reserva de visita guiada */}
-      <VisitForm />
+      <VisitForm soloInicialPrimaria />
     </div>
   )
+  if (!(await esBilingue())) return cuerpo
+  return <PaginaMarco kicker="pVisitaK" titulo="pVisitaT" texto="pVisitaP">{cuerpo}</PaginaMarco>
 }
 

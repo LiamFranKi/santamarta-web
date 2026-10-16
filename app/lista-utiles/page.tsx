@@ -2,13 +2,15 @@ import { Metadata } from 'next'
 import { FiDownload, FiBook, FiUsers, FiAward, FiFileText } from 'react-icons/fi'
 import { getListaUtiles } from '@/lib/lista-utiles'
 import { resolveNivelTheme } from '@/lib/lista-utiles-colors'
+import PaginaMarco from '@/components/santamarta/PaginaMarco'
+import { esBilingue } from '@/lib/sms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
   title: 'Lista de Útiles',
-  description: 'Lista de útiles escolares por nivel educativo en Vanguard Schools. Descarga las listas de materiales necesarios para cada grado.',
+  description: 'Lista de útiles de Santa Marta School, publicada desde la intranet.',
 }
 
 const nivelIcons = {
@@ -21,7 +23,7 @@ export default async function ListaUtilesPage() {
   const listaUtilesData = await getListaUtiles()
   const descargasOn = listaUtilesData.descargas_habilitadas !== false
 
-  return (
+  const cuerpo = (
     <div className="pt-20">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 text-white py-16">
@@ -194,4 +196,6 @@ export default async function ListaUtilesPage() {
       </section>
     </div>
   )
+  if (!(await esBilingue())) return cuerpo
+  return <PaginaMarco kicker="pUtiK" titulo="pUtiT" texto="pUtiP">{cuerpo}</PaginaMarco>
 }

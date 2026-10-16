@@ -1,16 +1,18 @@
 import { Metadata } from 'next'
 import CalendarizationCalendar from '@/components/CalendarizationCalendar'
+import PaginaMarco from '@/components/santamarta/PaginaMarco'
+import { esBilingue } from '@/lib/sms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Calendarización 2026',
-  description: 'Consulta el calendario académico y eventos del año 2026 de Vanguard Schools.',
+  title: 'Calendarización',
+  description: 'Calendario académico de Santa Marta School, cargado desde la intranet.',
 }
 
-export default function CalendarizacionPage() {
-  return (
+export default async function CalendarizacionPage() {
+  const cuerpo = (
     <div className="pt-20">
       <section className="bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 text-white py-16">
         <div className="container mx-auto px-4">
@@ -33,5 +35,7 @@ export default function CalendarizacionPage() {
       </section>
     </div>
   )
+  if (!(await esBilingue())) return cuerpo
+  return <PaginaMarco kicker="pCalK" titulo="pCalT" texto="pCalP">{cuerpo}</PaginaMarco>
 }
 

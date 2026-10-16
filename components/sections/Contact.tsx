@@ -140,7 +140,7 @@ export default function Contact() {
                 <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 mt-4">
                   <div className="w-full" style={{ height: '300px' }}>
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.234567890123!2d-77.0851712!3d-12.0140762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105ce93e7332faf%3A0x5419c3e0a840d1a1!2sColegio%20Vanguard%20School!5e0!3m2!1ses!2spe!4v1700000000000!5m2!1ses!2spe"
+                      src={`https://maps.google.com/maps?q=${encodeURIComponent(contacto.direccion || 'Santa Marta School Comas')}&z=16&output=embed`}
                       width="100%"
                       height="100%"
                       style={{ border: 0, borderRadius: '8px' }}
@@ -148,7 +148,7 @@ export default function Contact() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       className="w-full h-full"
-                      title="Ubicación Vanguard Schools"
+                      title="Ubicación de Santa Marta School"
                     ></iframe>
                   </div>
                 </div>

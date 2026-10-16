@@ -102,7 +102,7 @@ export default function WorkWithUsForm() {
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mb-4" />
               <p className="text-gray-700 mb-4">
-                En Vanguard Schools buscamos profesionales comprometidos con la educación,
+                En Santa Marta School buscamos profesionales comprometidos con la educación,
                 la innovación y la formación integral de nuestros estudiantes.
               </p>
               <p className="text-gray-700 mb-4">
@@ -111,7 +111,7 @@ export default function WorkWithUsForm() {
                 de existir una vacante acorde a tu experiencia.
               </p>
               <ul className="space-y-2 text-gray-700 text-sm mt-4">
-                <li>• Docentes para Inicial, Primaria y Secundaria.</li>
+                <li>• Docentes para Inicial y Primaria.</li>
                 <li>• Especialistas en inglés, tecnología y robótica.</li>
                 <li>• Personal administrativo y de soporte educativo.</li>
               </ul>
@@ -263,7 +263,7 @@ export default function WorkWithUsForm() {
                   value={formData.mensaje}
                   onChange={handleChange}
                   className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 resize-none"
-                  placeholder="Cuéntanos brevemente sobre tu experiencia, formación y por qué deseas trabajar en Vanguard Schools."
+                  placeholder="Cuéntanos brevemente sobre tu experiencia, formación y por qué deseas trabajar en Santa Marta School."
                 />
               </div>
 

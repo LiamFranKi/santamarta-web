@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { getFaqs } from '@/lib/faqs'
 import FaqAccordion from '@/components/faqs/FaqAccordion'
+import PaginaMarco from '@/components/santamarta/PaginaMarco'
+import { esBilingue } from '@/lib/sms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -9,7 +11,7 @@ export const revalidate = 0
 export const metadata: Metadata = {
   title: 'Preguntas Frecuentes',
   description:
-    'Admisión, vacantes, traslados y visitas al campus de Vanguard Schools. Resuelve tus dudas antes de dar el siguiente paso.',
+    'Preguntas frecuentes de Santa Marta School.',
 }
 
 const NIVELES = [
@@ -38,8 +40,10 @@ const NIVELES = [
 
 export default async function PreguntasFrecuentesPage() {
   const faqs = await getFaqs()
+  const bilingue = await esBilingue()
+  const niveles = bilingue ? NIVELES.filter((n) => n.href !== '/niveles/secundaria') : NIVELES
 
-  return (
+  const cuerpo = (
     <div className="pt-20">
       <section className="relative overflow-hidden bg-gradient-to-br from-primary-800 via-primary-900 to-slate-950 text-white py-16 md:py-20">
         <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-gold-400/20 blur-3xl" />
@@ -88,8 +92,8 @@ export default async function PreguntasFrecuentesPage() {
             <p className="text-center text-sm font-bold tracking-[0.16em] uppercase text-gray-400 mb-5">
               Preguntas de cada nivel
             </p>
-            <div className="grid md:grid-cols-3 gap-4">
-              {NIVELES.map((n) => (
+            <div className={`grid gap-4 ${niveles.length > 2 ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+              {niveles.map((n) => (
                 <Link
                   key={n.href}
                   href={n.href}
@@ -106,4 +110,6 @@ export default async function PreguntasFrecuentesPage() {
       </section>
     </div>
   )
+  if (!bilingue) return cuerpo
+  return <PaginaMarco kicker="pFaqK" titulo="pFaqT" texto="pFaqP">{cuerpo}</PaginaMarco>
 }
