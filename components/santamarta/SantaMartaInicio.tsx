@@ -15,6 +15,8 @@ export default function SantaMartaInicio() {
   return (
     <div className="sms-home">
       <section className="sms-hero">
+        <img className="sms-hero-banner" src="/api/banner-inicio" alt="" />
+        <div className="sms-hero-veil" aria-hidden="true" />
         <div className="sms-wrap sms-hero-grid">
           <div className="sms-hero-copy">
             <div className="sms-kicker"><span className="sms-dot" />{t('cejaHero')}</div>
@@ -30,11 +32,9 @@ export default function SantaMartaInicio() {
             </div>
           </div>
           <div className="sms-art">
-            <div className="sms-orbit" />
             <span className="sms-spark" aria-hidden="true">✳</span>
             <span className="sms-scribble" aria-hidden="true">✧</span>
             <div className="sms-label"><span className="sms-serif">{t('hello')}!</span>{t('mundo')}</div>
-            <img className="sms-children" src="/santa-marta/ninos.webp" alt={t('altNinos')} />
             <div className="sms-note"><span aria-hidden="true">♡</span><div>{t('nota1')}<br /><strong>{t('nota2')}</strong></div></div>
             <div className="sms-caption">{t('caption')}</div>
           </div>
